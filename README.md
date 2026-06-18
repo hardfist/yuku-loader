@@ -106,6 +106,33 @@ export default {
 };
 ```
 
+## Built-in Plugins
+
+### `transform-remove-console`
+
+Ports Babel's `babel-plugin-transform-remove-console` behavior to the yuku-loader plugin API. It removes `console.*` calls and supports Babel's `exclude` option.
+
+```js
+export default {
+  module: {
+    rules: [
+      {
+        test: /\.[cm]?[jt]sx?$/,
+        loader: "yuku-loader",
+        options: {
+          plugins: [
+            [
+              "yuku-loader/plugins/transform-remove-console",
+              { exclude: ["error", "warn"] }
+            ]
+          ]
+        }
+      }
+    ]
+  }
+};
+```
+
 ## Options
 
 ```ts
@@ -130,6 +157,7 @@ Set `ast: true` to also pass `{ webpackAST: program }` as loader metadata for ex
 ```sh
 npm install
 npm test
+npm run benchmark:remove-console
 ```
 
 The basic example lives in `examples/basic`.

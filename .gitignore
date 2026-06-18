@@ -1,5 +1,6 @@
 node_modules/
 dist/
+.swc/
 examples/**/dist/
 examples/**/dist-*/
 coverage/

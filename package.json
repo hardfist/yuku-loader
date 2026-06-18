@@ -11,6 +11,11 @@
       "import": "./dist/index.js",
       "require": "./dist/loader.cjs",
       "default": "./dist/loader.cjs"
+    },
+    "./plugins/transform-remove-console": {
+      "types": "./dist/plugins/transform-remove-console.d.ts",
+      "import": "./dist/plugins/transform-remove-console.js",
+      "default": "./dist/plugins/transform-remove-console.js"
     }
   },
   "files": [
@@ -19,6 +24,7 @@
     "LICENSE"
   ],
   "scripts": {
+    "benchmark:remove-console": "node ./scripts/benchmark-remove-console.mjs",
     "build": "tsc -p tsconfig.json && node ./scripts/copy-loader.mjs",
     "prepare": "npm run build",
     "prepack": "npm run build",
@@ -57,8 +63,12 @@
     "yuku-parser": "^0.5.38"
   },
   "devDependencies": {
+    "@babel/core": "^8.0.1",
     "@rspack/core": "^2.0.8",
+    "@swc/core": "^1.15.41",
+    "@swc/plugin-remove-console": "^12.13.0",
     "@types/node": "^20.19.0",
+    "babel-plugin-transform-remove-console": "^6.9.4",
     "typescript": "^6.0.0",
     "webpack": "^5.107.2"
   },
