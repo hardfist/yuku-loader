@@ -1,0 +1,58 @@
+{
+  "name": "rspack-yuku-loader",
+  "version": "0.1.0",
+  "description": "Rspack loader that uses Yuku to parse, transform, and print JavaScript/TypeScript ASTs.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "npm run build && node --test \"test/**/*.test.mjs\"",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "keywords": [
+    "rspack",
+    "loader",
+    "yuku",
+    "ast",
+    "transform",
+    "typescript",
+    "javascript"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hardfist/rspack-yuku-loader.git"
+  },
+  "peerDependencies": {
+    "@rspack/core": ">=1.0.0 || >=2.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@rspack/core": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "yuku-codegen": "^0.5.38",
+    "yuku-parser": "^0.5.38"
+  },
+  "devDependencies": {
+    "@rspack/core": "^2.0.8",
+    "@types/node": "^20.19.0",
+    "typescript": "^6.0.0"
+  },
+  "engines": {
+    "node": ">=20.19.0"
+  }
+}
