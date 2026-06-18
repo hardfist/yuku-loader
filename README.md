@@ -108,6 +108,28 @@ export default {
 
 ## Built-in Plugins
 
+### `styled-jsx`
+
+Provides a small static `styled-jsx` transform for the yuku-loader plugin API. It handles static `<style jsx>` and `<style jsx global>` blocks, injects `styled-jsx/style`, scopes simple selectors, and adds the generated `className` to native JSX elements in the same tree.
+
+```js
+export default {
+  module: {
+    rules: [
+      {
+        test: /\.[cm]?[jt]sx?$/,
+        loader: "yuku-loader",
+        options: {
+          plugins: ["yuku-loader/plugins/styled-jsx"]
+        }
+      }
+    ]
+  }
+};
+```
+
+The current implementation targets static CSS strings and template literals. Dynamic CSS expressions are left unchanged and reported as warnings.
+
 ### `transform-remove-console`
 
 Ports Babel's `babel-plugin-transform-remove-console` behavior to the yuku-loader plugin API. It removes `console.*` calls and supports Babel's `exclude` option.
@@ -159,5 +181,7 @@ npm install
 npm test
 npm run benchmark:remove-console
 ```
+
+The remove-console benchmark compares Babel, SWC, and Yuku across synthetic code, `three/build/three.module.js`, and `typescript/lib/typescript.js`. Use `BENCH_FIXTURES=synthetic,three,typescript`, `BENCH_ITERATIONS`, `BENCH_WARMUP`, or `BENCH_UNITS` to tune local runs.
 
 The basic example lives in `examples/basic`.

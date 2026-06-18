@@ -16,6 +16,11 @@
       "types": "./dist/plugins/transform-remove-console.d.ts",
       "import": "./dist/plugins/transform-remove-console.js",
       "default": "./dist/plugins/transform-remove-console.js"
+    },
+    "./plugins/styled-jsx": {
+      "types": "./dist/plugins/styled-jsx.d.ts",
+      "import": "./dist/plugins/styled-jsx.js",
+      "default": "./dist/plugins/styled-jsx.js"
     }
   },
   "files": [
@@ -69,6 +74,7 @@
     "@swc/plugin-remove-console": "^12.13.0",
     "@types/node": "^20.19.0",
     "babel-plugin-transform-remove-console": "^6.9.4",
+    "three": "^0.184.0",
     "typescript": "^6.0.0",
     "webpack": "^5.107.2"
   },
