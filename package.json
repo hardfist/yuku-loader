@@ -38,7 +38,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/hardfist/yuku-loader.git"
+    "url": "git+https://github.com/hardfist/yuku-loader.git"
   },
   "peerDependencies": {
     "@rspack/core": ">=1.0.0 || >=2.0.0",
