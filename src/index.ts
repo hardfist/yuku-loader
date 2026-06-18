@@ -10,7 +10,7 @@ import type {
   GenerateMode,
   LoaderPluginContext,
   LoaderPluginResult,
-  RspackYukuLoaderOptions
+  YukuLoaderOptions
 } from "./types.js";
 
 export type * from "./types.js";
@@ -28,13 +28,13 @@ interface MinimalLoaderContext {
   rootContext?: string;
   sourceMap?: boolean;
   async(): LoaderCallback;
-  getOptions?(): RspackYukuLoaderOptions;
+  getOptions?(): YukuLoaderOptions;
   emitWarning?(warning: Error): void;
   emitError?(error: Error): void;
   addDependency?(file: string): void;
 }
 
-export default async function rspackYukuLoader(
+export default async function yukuLoader(
   this: MinimalLoaderContext,
   source: string | Buffer
 ): Promise<void> {
@@ -48,7 +48,7 @@ export default async function rspackYukuLoader(
       null,
       result.code,
       result.map ?? undefined,
-      options.ast === false ? undefined : { webpackAST: result.program }
+      options.ast === true ? { webpackAST: result.program } : undefined
     );
   } catch (error) {
     callback(error instanceof Error ? error : new Error(String(error)));
@@ -57,7 +57,7 @@ export default async function rspackYukuLoader(
 
 export async function transform(
   source: string,
-  options: RspackYukuLoaderOptions,
+  options: YukuLoaderOptions,
   context: LoaderPluginContext
 ): Promise<Required<LoaderPluginResult> & { program: NonNullable<LoaderPluginResult["program"]> }> {
   const parseResult = parse(source, {
@@ -114,7 +114,7 @@ function generate(
   program: NonNullable<LoaderPluginResult["program"]>,
   lineStarts: number[],
   source: string,
-  options: RspackYukuLoaderOptions,
+  options: YukuLoaderOptions,
   context: LoaderPluginContext
 ) {
   const requestedMode = options.generate === false ? "auto" : options.generate ?? "auto";

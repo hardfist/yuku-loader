@@ -1,16 +1,19 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { rspack } from "@rspack/core";
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default {
   context: dirname,
   mode: "development",
+  devtool: false,
   entry: "./src/index.js",
   output: {
-    path: path.join(dirname, "dist"),
+    path: path.join(dirname, "dist-webpack"),
     filename: "bundle.js"
+  },
+  optimization: {
+    minimize: false
   },
   module: {
     rules: [
@@ -26,8 +29,5 @@ export default {
         }
       }
     ]
-  },
-  plugins: [
-    new rspack.ProgressPlugin()
-  ]
+  }
 };

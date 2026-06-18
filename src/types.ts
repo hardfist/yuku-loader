@@ -54,7 +54,7 @@ export type LoaderPlugin =
   | string
   | [string | LoaderPluginFactory, unknown];
 
-export interface RspackYukuLoaderOptions {
+export interface YukuLoaderOptions {
   plugins?: LoaderPlugin[];
   parse?: ParseOptions;
   codegen?: CodegenOptions;

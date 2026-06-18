@@ -1,14 +1,35 @@
-# rspack-yuku-loader
+# yuku-loader
 
-Rspack loader that uses [Yuku](https://github.com/yuku-toolchain/yuku) to parse JavaScript and TypeScript into an ESTree-compatible AST, run JavaScript plugins that mutate or replace that AST, and print the transformed module back to code.
+Yuku-powered AST transform loader for webpack and Rspack. It parses JavaScript and TypeScript into an ESTree-compatible AST, runs JavaScript plugins that mutate or replace that AST, and prints the transformed module back to code.
 
 ## Install
 
 ```sh
-npm install -D rspack-yuku-loader
+npm install -D yuku-loader
 ```
 
 Yuku is bundled as runtime dependencies through `yuku-parser` and `yuku-codegen`.
+
+## Webpack Usage
+
+```js
+// webpack.config.mjs
+export default {
+  module: {
+    rules: [
+      {
+        test: /\.[cm]?[jt]sx?$/,
+        loader: "yuku-loader",
+        type: "javascript/auto",
+        options: {
+          format: "compact",
+          plugins: ["./build/rename-plugin.mjs"]
+        }
+      }
+    ]
+  }
+};
+```
 
 ## Rspack Usage
 
@@ -19,7 +40,7 @@ export default {
     rules: [
       {
         test: /\.[cm]?[jt]sx?$/,
-        loader: "rspack-yuku-loader",
+        loader: "yuku-loader",
         type: "javascript/auto",
         options: {
           format: "compact",
@@ -88,7 +109,7 @@ export default {
 ## Options
 
 ```ts
-interface RspackYukuLoaderOptions {
+interface YukuLoaderOptions {
   plugins?: LoaderPlugin[];
   parse?: ParseOptions;
   codegen?: CodegenOptions;
@@ -98,11 +119,11 @@ interface RspackYukuLoaderOptions {
 }
 ```
 
-`generate` defaults to `auto`. JavaScript resources use `print`; TypeScript resources use `strip` so type syntax is removed before Rspack parses the module.
+`generate` defaults to `auto`. JavaScript resources use `print`; TypeScript resources use `strip` so type syntax is removed before the bundler parses the module.
 
-The loader also passes `{ webpackAST: program }` as loader metadata for compatibility with bundlers that consume loader-provided ASTs. The transformed code is still the source of truth.
+The transformed code is the source of truth for both webpack and Rspack.
 
-Set `ast: false` to skip that metadata.
+Set `ast: true` to also pass `{ webpackAST: program }` as loader metadata for experiments with bundlers that consume loader-provided ASTs.
 
 ## Development
 

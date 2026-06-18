@@ -74,7 +74,7 @@ function resolvePluginRequest(request: string, context: LoaderPluginContext): st
     return request;
   }
 
-  const fromRoot = createRequire(path.join(context.rootContext, "rspack.config.js"));
+  const fromRoot = createRequire(path.join(context.rootContext, "package.json"));
   return fromRoot.resolve(request, {
     paths: [context.rootContext, path.dirname(context.resourcePath)]
   });
@@ -120,7 +120,7 @@ async function normalizeLoadedPlugin(
     };
   }
 
-  throw new TypeError(pluginLabel(original) + " is not a valid rspack-yuku-loader plugin");
+  throw new TypeError(pluginLabel(original) + " is not a valid yuku-loader plugin");
 }
 
 function normalizeResult(result: unknown): LoaderPluginResult | void {
